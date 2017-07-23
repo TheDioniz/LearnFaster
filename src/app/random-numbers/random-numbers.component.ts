@@ -33,11 +33,9 @@ export class RandomNumbersComponent implements OnInit {
     return (this.userNumbers == this.generatedNumbers);
   }
 
-  checkUser(e: KeyboardEvent) {
-    // enter pressed and user provided data?
+  checkUserInput(e: KeyboardEvent) {
+    // 'enter' pressed and user provided data?
     if (e.charCode === 13 && !isNullOrUndefined(this.userNumbers) && this.isStarted) {
-      console.log('generated ' + this.generatedNumbers);
-      console.log('user ' + this.userNumbers);
       // same numbers?
       const same = this.verifyNumber();
       if (same) {
@@ -45,19 +43,24 @@ export class RandomNumbersComponent implements OnInit {
       } else {
         this.usService.incrementWrong();
       }
-        this.usService.onStatisticsUpdate.emit();
+      // adjust statistics in real time
+      this.usService.onStatisticsUpdate.emit();
+      // check if level needs to be adjusted
       this.adjustLevel();
-      this.userNumbers = null;
-      this.generatedNumbers = this.rnService.generateNumbers();
-      this.numbersVisible = true;
-      // add to statistics
-      // generate new
-      this.onStart();
+      this.showNextNumbers();
     }
   }
 
   onStart() {
     this.isStarted = true;
+    this.showNextNumbers();
+  }
+
+  private showNextNumbers() {
+    // clear input of numbers each time
+    this.userNumbers = null;
+    // mark numbers as visible
+    this.numbersVisible = true;
     this.generatedNumbers = this.rnService.generateNumbers();
     setTimeout(() => this.toggleNumbers(), this.rnService.msTimeout);
   }
@@ -73,16 +76,11 @@ export class RandomNumbersComponent implements OnInit {
   }
 
   adjustLevel() {
+    // if user tried 'nextLevelTreshold' times, else do nothing
     if ((this.usService.tries % this.nextLevelThreshold) === 0) {
       this.rnService.increaseShowTimeout();
       this.rnService.increaseNumbersLength();
     }
-
-    console.log('this.usService.tries: ' + this.usService.tries);
-    console.log('this.rnService.min: ' + this.rnService.min);
-    console.log('this.rnService.max: ' + this.rnService.max);
-
-    console.log('msTimeout: ' + this.rnService.msTimeout);
   }
 
 }

@@ -1,17 +1,22 @@
-    <form>
-      <div class="form-group">
-        <p class="lead text-center" style="font-size: 32px;">
-          <span *ngIf="numbersVisible">{{ generatedNumbers }}</span>
-        </p>
-        <label for="user_numbers"></label>
-        <input id="user_numbers" name="user_numbers" class="form-control" placeholder="numbers goes here..."
-               (keypress)="checkUser($event)" [(ngModel)]="userNumbers" required autocomplete="off" autofocus/>
-               <!--(keypress)="checkUser($event)" [(ngModel)]="userNumbers" required [disabled]="numbersVisible" autocomplete="off" appCustomAutofocus/>-->
-      </div>
-      <button class="btn btn-primary" (click)="onStart()" [disabled]="isStarted">Start Game</button>
-      <div class="btn-group pull-right">
-        <button type="button" class="btn btn-success" (click)="showStatistics()">Show Statistics</button>
-        <button type="button" class="btn btn-warning" (click)="stopGame()">End Game</button>
-      </div>
-    </form>
-    <p *ngIf="isStopped"><strong>Game ended!</strong></p>
+<form>
+  <div class="form-group">
+    <p class="lead text-center" style="font-size: 32px;">
+      <span *ngIf="numbersVisible">{{ generatedNumbers }}</span>
+    </p>
+    <label for="user_numbers"></label>
+    <input id="user_numbers" name="user_numbers" class="form-control" placeholder="numbers goes here..."
+           (keypress)="checkUserInput($event)" [(ngModel)]="userNumbers" required autocomplete="off" autofocus/>
+    <!-- when working with 'disabled' it loses focus in each new number generated -->
+    <!--(keypress)="checkUser($event)" [(ngModel)]="userNumbers" required [disabled]="numbersVisible" autocomplete="off" appCustomAutofocus/>-->
+  </div>
+  <button class="btn btn-primary" (click)="onStart()" [disabled]="isStarted">Start Game</button>
+  <div class="btn-group pull-right">
+    <button type="button" class="btn btn-success" (click)="showStatistics()">Show Statistics</button>
+    <button type="button" class="btn btn-warning" (click)="stopGame()">End Game</button>
+  </div>
+</form>
+<div class="row" *ngIf="isStopped">
+  <div class="col-lg-3">
+    <p><strong>Game ended!</strong></p>
+  </div>
+</div>

@@ -32,4 +32,10 @@ export class UserStatisticsService {
   get tries(): number {
     return this._tries;
   }
+
+  clearStats() {
+    this._correct = 0;
+    this._wrong = 0;
+    this._tries = 0;
+  }
 }
