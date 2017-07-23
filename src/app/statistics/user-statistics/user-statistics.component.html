@@ -1,0 +1,16 @@
+    <table class="table table-bordered" *ngIf="statistics">
+      <thead>
+        <tr>
+          <th>Tries</th>
+          <th>Correct</th>
+          <th>Wrong</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="info">{{ tries }}</td>
+          <td class="success">{{ correct }}</td>
+          <td class="warning">{{ wrong }}</td>
+        </tr>
+      </tbody>
+    </table>

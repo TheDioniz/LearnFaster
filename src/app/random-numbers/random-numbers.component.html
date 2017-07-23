@@ -1,0 +1,17 @@
+    <form>
+      <div class="form-group">
+        <p class="lead text-center" style="font-size: 32px;">
+          <span *ngIf="numbersVisible">{{ generatedNumbers }}</span>
+        </p>
+        <label for="user_numbers"></label>
+        <input id="user_numbers" name="user_numbers" class="form-control" placeholder="numbers goes here..."
+               (keypress)="checkUser($event)" [(ngModel)]="userNumbers" required autocomplete="off" autofocus/>
+               <!--(keypress)="checkUser($event)" [(ngModel)]="userNumbers" required [disabled]="numbersVisible" autocomplete="off" appCustomAutofocus/>-->
+      </div>
+      <button class="btn btn-primary" (click)="onStart()" [disabled]="isStarted">Start Game</button>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-success" (click)="showStatistics()">Show Statistics</button>
+        <button type="button" class="btn btn-warning" (click)="stopGame()">End Game</button>
+      </div>
+    </form>
+    <p *ngIf="isStopped"><strong>Game ended!</strong></p>
